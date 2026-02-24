@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Checkout | Watch Store</title>
+</head>
+<body style="background-color: black; color: white; font-family: 'Segoe UI', sans-serif;margin:30px;">
+
+    <div id="nav">
+        <a href="index.html" id="checkhome">Home</a>
+        <a href="cart.html" id="checkcart">Back to Cart</a>
+    </div>
+
+    <div style="max-width: 800px; margin: 40px auto; padding: 20px;">
+        <h1>Checkout</h1>
+        <br>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <form id="checkoutForm">
+                <h3>Shipping Information</h3><br>
+                <input type="text" id="custName" placeholder="Full Name" required style="width: 100%; margin-bottom: 15px; padding: 12px; background: #222; border: 1px solid #444; color: white;">
+                <input type="email" id="custEmail" placeholder="Email Address" required style="width: 100%; margin-bottom: 15px; padding: 12px; background: #222; border: 1px solid #444; color: white;">
+                <textarea id="custAddr" placeholder="Shipping Address" required style="width: 100%; margin-bottom: 15px; padding: 12px; background: #222; border: 1px solid #444; color: white; height: 80px;"></textarea>
+                
+                <button type="submit" style="width: 100%; padding: 15px; background: #fff; color: #000; border: none; font-weight: bold; cursor: pointer;">
+                    PLACE ORDER
+                </button>
+            </form>
+
+            <div style="background: #111; padding: 20px; border-radius: 8px;">
+                <h3>Order Summary</h3>
+                <div id="orderSummaryItems">
+                    </div>
+                <hr style="border: 0; border-top: 1px solid #333; margin: 15px 0;">
+                <h2 id="orderTotal">Total: ₹0</h2>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
