@@ -319,3 +319,12 @@ footer{
 .nav a:hover{
   color:grey;
 }
+
+/*canvas styling*/
+#analogClock {
+  display: block;
+  margin: 15px auto;
+  background: #000;
+  border-radius: 50%;
+  border: 3px solid #555;
+}

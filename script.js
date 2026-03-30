@@ -249,5 +249,91 @@ async function runSaleTimer() {
 }
 
 runSaleTimer();
-//end
+
+//canvas clock
+
+// ===== NORMAL ANALOG CLOCK (REAL TIME) =====
+
+const canvas = document.getElementById("analogClock");
+
+if (canvas) {
+    const ctx = canvas.getContext("2d");
+    const radius = canvas.height / 2;
+    ctx.translate(radius, radius);
+
+    function drawClock() {
+        ctx.clearRect(-radius, -radius, canvas.width, canvas.height);
+
+        drawFace();
+        drawNumbers();
+        drawTime();
+    }
+
+    function drawFace() {
+        ctx.beginPath();
+        ctx.arc(0, 0, radius * 0.95, 0, 2 * Math.PI);
+        ctx.fillStyle = "#000";
+        ctx.fill();
+
+        ctx.strokeStyle = "#fff";
+        ctx.lineWidth = 3;
+        ctx.stroke();
+    }
+
+    function drawNumbers() {
+        ctx.font = radius * 0.15 + "px Arial";
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "center";
+        ctx.fillStyle = "white";
+
+        for (let num = 1; num <= 12; num++) {
+            let ang = num * Math.PI / 6;
+            ctx.rotate(ang);
+            ctx.translate(0, -radius * 0.8);
+            ctx.rotate(-ang);
+            ctx.fillText(num.toString(), 0, 0);
+            ctx.rotate(ang);
+            ctx.translate(0, radius * 0.8);
+            ctx.rotate(-ang);
+        }
+    }
+
+    function drawTime() {
+        const now = new Date();
+
+        let hour = now.getHours();
+        let minute = now.getMinutes();
+        let second = now.getSeconds();
+
+        // Convert to angles
+        hour = hour % 12;
+        hour = (hour * Math.PI / 6) +
+               (minute * Math.PI / (6 * 60)) +
+               (second * Math.PI / (360 * 60));
+
+        minute = (minute * Math.PI / 30) +
+                 (second * Math.PI / (30 * 60));
+
+        second = second * Math.PI / 30;
+
+        drawHand(hour, radius * 0.5, 5);
+        drawHand(minute, radius * 0.75, 3);
+        drawHand(second, radius * 0.9, 2, "red");
+    }
+
+    function drawHand(pos, length, width, color = "white") {
+        ctx.beginPath();
+        ctx.lineWidth = width;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = color;
+
+        ctx.moveTo(0, 0);
+        ctx.rotate(pos);
+        ctx.lineTo(0, -length);
+        ctx.stroke();
+        ctx.rotate(-pos);
+    }
+
+    setInterval(drawClock, 1000);
+}
 
