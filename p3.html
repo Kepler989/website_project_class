@@ -36,7 +36,9 @@
       <div class="action-buttons">
         <button onclick="addToCart('Casio G-Shock DW-H5600','₹8,000','assets/casiodwh5600.avif')" class="inputbutton">Add to Cart</button>
         <button onclick="addToWishlist('Casio G-Shock DW-H5600','₹8,000','assets/casiodwh5600.avif')" class="wishlist-btn">Add to Wishlist</button>
+      <button class="wishlist-btn" onclick="togglePriceGraph('p3')">Price History</button>
       </div>
+      <canvas id="priceChart" width="500" height="200" style="display:none; margin-top:20px; background:#111; border-radius:10px;"></canvas>
 
       <div class="specs-section">
         <hr>

@@ -337,3 +337,101 @@ if (canvas) {
     setInterval(drawClock, 1000);
 }
 
+//canvas price history
+
+const productPrices = {
+    p1: [22000, 24000, 25000],
+    p2: [20000, 23000, 25000],
+    p3: [7000, 7500, 8000],
+    p4: [10000, 11000, 12000],
+    p5: [23000, 24000, 25000]
+};
+
+const months = ["Jan", "Feb", "Mar"];
+
+function togglePriceGraph(productId) {
+    const canvas = document.getElementById("priceChart");
+    if (!canvas) return;
+
+    if (canvas.style.display === "none") {
+        canvas.style.display = "block";
+        drawPriceGraph(canvas, productId);
+    } else {
+        canvas.style.display = "none";
+    }
+}
+
+function drawPriceGraph(canvas, productId) {
+    const ctx = canvas.getContext("2d");
+
+    const prices = productPrices[productId];
+
+    const width = canvas.width;
+    const height = canvas.height;
+
+    ctx.clearRect(0, 0, width, height);
+
+    const padding = 40;
+    const rightPadding = 80;
+
+    const maxPrice = Math.max(...prices);
+    const minPrice = Math.min(...prices);
+
+    const stepX = (width - padding - rightPadding) / (prices.length - 1);
+
+    ctx.strokeStyle = "#aaa";
+    ctx.lineWidth = 1;
+
+    ctx.beginPath();
+    ctx.moveTo(padding, padding);
+    ctx.lineTo(padding, height - padding);
+    ctx.lineTo(width - rightPadding, height - padding);
+    ctx.stroke();
+
+    ctx.strokeStyle = "#333";
+    for (let i = 0; i < 4; i++) {
+        let y = padding + i * ((height - 2 * padding) / 3);
+        ctx.beginPath();
+        ctx.moveTo(padding, y);
+        ctx.lineTo(width - rightPadding, y);
+        ctx.stroke();
+    }
+
+    ctx.strokeStyle = "#4da6ff";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+
+    prices.forEach((price, index) => {
+        const x = padding + index * stepX;
+        const y = height - padding - ((price - minPrice) / (maxPrice - minPrice)) * (height - 2 * padding);
+
+        if (index === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    });
+
+    ctx.stroke();
+
+    ctx.fillStyle = "#fff";
+    prices.forEach((price, index) => {
+        const x = padding + index * stepX;
+        const y = height - padding - ((price - minPrice) / (maxPrice - minPrice)) * (height - 2 * padding);
+
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, 2 * Math.PI);
+        ctx.fill();
+    });
+
+    ctx.fillStyle = "#ccc";
+    ctx.font = "12px Arial";
+    ctx.textAlign = "center";
+
+    months.forEach((month, index) => {
+        const x = padding + index * stepX;
+        const y = height - padding + 15;
+        ctx.fillText(month, x, y);
+    });
+
+    ctx.fillStyle = "#4da6ff";
+    ctx.textAlign = "left";
+    ctx.fillText("₹" + prices[prices.length - 1], width - rightPadding + 10, height / 2);
+}
