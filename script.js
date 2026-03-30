@@ -189,7 +189,7 @@ function processOrder(event) {
     localStorage.removeItem('appliedDiscount'); 
 
     updateCartUI();
-    window.location.href = "home.html";
+    window.location.href = "index.html";
 }
 
 //coupon functionality
