@@ -1,1 +1,1 @@
-This is a e-commerce website project.
+This is an e-commerce website project.
