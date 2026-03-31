@@ -85,10 +85,23 @@
         </div>
     </div>
   </section>
-  <div class="head"><h2 style="color:white;">Top Sellers</h2></div>
+  <div class="head" style="display:flex; align-items:center; gap:20px;">
+  <h2 style="color:white;">Top Sellers</h2>
+
+  <div style="position:relative;">
+    <button class="inputbutton" onclick="toggleFilter()" style="width:300px">Filter by category</button>
+
+    <div id="filterDropdown" style="display:none; position:absolute; top:40px; background:#111; border:1px solid #444; border-radius:8px; padding:10px;">
+      <p onclick="applyFilter('all')" style="cursor:pointer;width:300px;text-align: center;">All</p>
+      <p onclick="applyFilter('gshock')" style="cursor:pointer;width:300px;text-align: center;">G-Shock</p>
+      <p onclick="applyFilter('protrek')" style="cursor:pointer;width:300px;text-align: center;">Pro-Trek</p>
+      <p onclick="applyFilter('edifice')" style="cursor:pointer;width:300px;text-align: center;">Edifice</p>
+    </div>
+  </div>
+</div>
   
   <div class="products-container">
-      <div class="products-card">
+      <div class="products-card" data-category="edifice">
         <a href="p1.html">
 
         <img src="assets/casioecb2000ss.avif" />
@@ -99,7 +112,7 @@
         <button onclick="addToCart('Casio Edifice ECB2000SS','₹25,000','assets/casioecb2000ss.avif')">Add to Cart</button><br>
         <button class="wishlist" onclick="addToWishlist('Casio Edifice ECB2000SS','₹25,000','assets/casioecb2000ss.avif')">Add to Wishlist</button>
       </div>
-      <div class="products-card">
+      <div class="products-card" data-category="edifice">
         <a href="p2.html">
         <img src="assets/casioecb2300d.avif" />
 
@@ -111,7 +124,7 @@
         <button class="wishlist" onclick="addToWishlist('Casio Edifice ECB2300D','₹25,000','assets/casioecb2300d.avif')">Add to Wishlist</button>
       </div>
       
-<div class="products-card">
+<div class="products-card" data-category="gshock">
   <a href="p3.html"> 
 
         <img src="assets/casiodwh5600.avif"/>
@@ -123,7 +136,7 @@
         <button class="wishlist" onclick="addToWishlist('Casio G-Shock DW-H5600','₹8,000','assets/casiodwh5600.avif')">Add to Wishlist</button>
       </div>
       
-<div class="products-card">
+<div class="products-card" data-category="protrek">
   <a href="p4.html">
 
         <img src="assets/casioprw61ss.avif" />
@@ -134,7 +147,7 @@
         <button onclick="addToCart('Casio Pro-Trek PRW-61SS','₹12,000','assets/casioprw61ss.avif')">Add to Cart</button><br>
         <button class="wishlist" onclick="addToWishlist('Casio Pro-Trek PRW-61SS','₹12,000','assets/casioprw61ss.avif')">Add to Wishlist</button>
       </div>
-<div class="products-card">
+<div class="products-card" data-category="gshock">
   <a href="p5.html">
 
         <img src="assets/casiogmw5000d.avif" />

@@ -435,3 +435,26 @@ function drawPriceGraph(canvas, productId) {
     ctx.textAlign = "left";
     ctx.fillText("₹" + prices[prices.length - 1], width - rightPadding + 10, height / 2);
 }
+
+//filter functionality
+
+function toggleFilter() {
+    const dropdown = document.getElementById("filterDropdown");
+    dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
+}
+
+function applyFilter(category) {
+    const products = document.querySelectorAll(".products-card");
+
+    products.forEach(product => {
+        const productCategory = product.getAttribute("data-category");
+
+        if (category === "all" || productCategory === category) {
+            product.style.display = "block";
+        } else {
+            product.style.display = "none";
+        }
+    });
+
+    document.getElementById("filterDropdown").style.display = "none";
+}
