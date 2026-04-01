@@ -458,3 +458,74 @@ function applyFilter(category) {
 
     document.getElementById("filterDropdown").style.display = "none";
 }
+
+//particle animation
+
+const canvasBg = document.getElementById("bgCanvas");
+
+if (canvasBg) {
+    const ctxBg = canvasBg.getContext("2d");
+
+    let particles = [];
+    const numParticles = 60;
+
+    function resizeCanvas() {
+        canvasBg.width = window.innerWidth;
+        canvasBg.height = window.innerHeight;
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < numParticles; i++) {
+        particles.push({
+            x: Math.random() * canvasBg.width,
+            y: Math.random() * canvasBg.height,
+            vx: (Math.random() - 0.5) * 1,
+            vy: (Math.random() - 0.5) * 1,
+            radius: Math.random() * 2 + 1
+        });
+    }
+
+    function drawParticles() {
+        ctxBg.clearRect(0, 0, canvasBg.width, canvasBg.height);
+
+        particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x < 0 || p.x > canvasBg.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvasBg.height) p.vy *= -1;
+
+            ctxBg.beginPath();
+            ctxBg.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctxBg.fillStyle = "rgba(255,255,255,0.7)";
+            ctxBg.fill();
+        });
+
+        connectParticles();
+
+        requestAnimationFrame(drawParticles);
+    }
+
+    function connectParticles() {
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                let dx = particles[i].x - particles[j].x;
+                let dy = particles[i].y - particles[j].y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 120) {
+                    ctxBg.beginPath();
+                    ctxBg.strokeStyle = "rgba(255,255,255,0.1)";
+                    ctxBg.lineWidth = 1;
+                    ctxBg.moveTo(particles[i].x, particles[i].y);
+                    ctxBg.lineTo(particles[j].x, particles[j].y);
+                    ctxBg.stroke();
+                }
+            }
+        }
+    }
+
+    drawParticles();
+}
